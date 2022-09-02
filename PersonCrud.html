@@ -29,7 +29,7 @@
         </div>
         <div class="container row">
             <div class="container col-6">
-                <label for="Email" class="form-label"><b>Email</b></label>
+                <label for="Email" class="form-label"><b>Email</b></label>̥
                 <input type="email" class="form-control" id="Email" placeholder="example@gmail.com">
             </div>
             <div class="container col-6">
@@ -44,7 +44,7 @@
 
     <!-- TABLE -->
     <div class="container">
-        <table class="table table-bordered" id="person">
+        <table class="table table-bordered" id="example">
             <thead>
                 <tr>
                     <th>First Name</th>
@@ -54,15 +54,47 @@
                 </tr>
             </thead>
             <tbody id="tbody">
+
             </tbody>
         </table>
     </div>
-
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
     <script>
+        $(function() {
+            $('#example').DataTable();
+
+            function Person(FirstName, LastName, Email, Contact) {
+                this.FirstName = FirstName;
+                this.LastName = LastName;
+                this.Email = Email;
+                this.Contact = Contact;
+            }
+
+            var FirstName = $('#First')
+            var LastName = $('#Surname')
+            var Email = $('#Email')
+            var Contact = $('#Contact')
+            var Add = $('#Add')
+
+            Add.click(function() {
+                $('#example').dataTable().fnDestroy();
+                let Persons = new Person(FirstName.val(), LastName.val(), Email.val(), Contact.val())
+                let tr = $('<tr></tr>')
+                    .append($('<td></td>').text(Persons.FirstName))
+                    .append($('<td></td>').text(Persons.LastName))
+                    .append($('<td></td>').text(Persons.Email))
+                    .append($('<td></td>').text(Persons.Contact))
+                $('#tbody').append(tr);
+
+                FirstName.val('')
+                LastName.val('')
+                Email.val('')
+                Contact.val('')
+                $('#example').DataTable();
+            })
+        })
     </script>
 
 </body>
